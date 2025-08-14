@@ -14,6 +14,10 @@
       --accent: #1e90ff;
       --border: #e2e8f0;
       --card: #ffffff;
+      --ok: #065f46;
+      --okbg: #d1fae5;
+      --err: #7f1d1d;
+      --errbg: #fee2e2;
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
@@ -25,7 +29,7 @@
     .header-inner { padding: 10px 0; }
     .brand-row { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; }
     .brand-block { display:flex; align-items:center; gap:14px; }
-    .brand-block img.logo { width: 153px; height: 153px; object-fit: contain; flex: 0 0 auto; } /* 15% smaller than 180px */
+    .brand-block img.logo { width: 153px; height: 153px; object-fit: contain; flex: 0 0 auto; }
     .brand-txt .title { font-weight: 800; letter-spacing: .2px; font-size: clamp(22px, 3vw, 28px); }
     .brand-txt .subtitle { font-size: 14px; color: var(--muted); }
     .verified { margin-top: 4px; font-size: 13px; color: var(--muted); }
@@ -55,6 +59,9 @@
     .form-full { grid-column:1 / -1; }
     input, textarea { width:100%; padding:12px; border:1px solid var(--border); border-radius:10px; font-family:inherit; font-size:15px; }
     button[type=submit] { border:0; }
+    .alert { border-radius:10px; padding:12px; margin-bottom:10px; display:none; }
+    .alert.ok { background: var(--okbg); color: var(--ok); }
+    .alert.err { background: var(--errbg); color: var(--err); }
 
     /* Footer */
     .site-footer { background: var(--card); border-top: 1px solid var(--border); margin-top: 26px; }
@@ -136,8 +143,9 @@
 
   <section id="contact" class="container section-card">
     <h2 class="section-title">Request an Inspection</h2>
+    <div id="form-alert" class="alert"></div>
     <p class="muted">Fill out the form and you’ll hear back promptly. Prefer to talk? Call <a href="tel:2083533483">(208) 353-3483</a>.</p>
-    <form class="contact-form" action="https://formspree.io/f/xgvzdgak" method="POST" accept-charset="UTF-8">
+    <form id="contactForm" class="contact-form" action="https://formspree.io/f/xgvzdgak" method="POST" accept-charset="UTF-8">
       <div>
         <label for="name">Full name</label>
         <input id="name" name="name" required />
@@ -158,6 +166,7 @@
         <button type="submit" class="btn primary">Send Request</button>
       </div>
       <input type="hidden" name="_subject" value="New Inquiry — Mabels Inspections" />
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
     </form>
   </section>
 
@@ -182,5 +191,45 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const alertBox = document.getElementById('form-alert');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertBox.style.display = 'none';
+      const data = new FormData(form);
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: data
+        });
+        if (res.ok) {
+          form.reset();
+          alertBox.textContent = 'Thanks! Your message has been sent.';
+          alertBox.className = 'alert ok';
+          alertBox.style.display = 'block';
+        } else {
+          const contentType = res.headers.get('content-type') || '';
+          let msg = 'Something went wrong. Please try again later.';
+          if (contentType.includes('application/json')) {
+            const json = await res.json();
+            if (json.errors && json.errors.length) {
+              msg = json.errors.map(e => e.message).join(' ');
+            }
+          }
+          alertBox.textContent = msg;
+          alertBox.className = 'alert err';
+          alertBox.style.display = 'block';
+        }
+      } catch (err) {
+        alertBox.textContent = 'Network error. Please check your connection and try again.';
+        alertBox.className = 'alert err';
+        alertBox.style.display = 'block';
+      }
+    });
+  </script>
 </body>
 </html>
