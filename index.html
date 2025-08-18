@@ -100,14 +100,17 @@
             <div class="verified">Verified CMI • Certified Master Inspector • Certified Mold Remediation Contractor</div>
           </div>
         </div>
-        <!-- images row: side-by-side on desktop, stacked on phones -->
+        
+
+<!-- images row: always side-by-side (desktop + mobile) -->
 <div style="
   display:flex;
   justify-content:center;
   align-items:center;
   gap:30px;
-  flex-wrap:wrap;
+  flex-wrap:nowrap;   /* force one row */
   text-align:center;
+  overflow-x:auto;    /* allow scroll on very small screens */
 ">
   <img src="logo.svg" alt="Mabels Inspections Logo"
        style="height:140px;width:auto;max-width:100%;">
@@ -131,6 +134,13 @@
   <img src="cmi-small.webp" alt="Certified Master Inspector (CMI)® badge"
        style="height:140px;width:auto;max-width:100%;">
 </div>
+
+</div>
+
+  <img src="cmi-small.webp" alt="Certified Master Inspector (CMI)® badge"
+       style="height:140px;width:auto;max-width:100%;">
+</div>
+
       </div>
       <nav class="nav-row">
         <a href="#services">Services</a>
