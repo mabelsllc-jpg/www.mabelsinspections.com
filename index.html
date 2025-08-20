@@ -3,8 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Certified Master Inspector & Certified Mold Remediation Contractor in Twin Falls, Idaho.">
-  <title>Mabels Inspections — CMI & Mold Remediation | Twin Falls, ID</title>
+
+  <title>Home Inspector in Twin Falls, ID | Certified Master Inspector – Mabels Inspections</title>
+  <meta name="description" content="Certified Master Inspector serving Twin Falls, Idaho and surrounding areas. Professional home inspections, clear reports, and fast turnaround. Call (208) 353-3483.">
+  <link rel="canonical" href="https://www.mabelsinspections.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Home Inspector in Twin Falls, ID – Mabels Inspections">
+  <meta property="og:description" content="Certified Master Inspector for Twin Falls, ID. Professional home inspections and clear reports.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.mabelsinspections.com/">
+  <meta property="og:image" content="https://www.mabelsinspections.com/logo.jpeg">
+
+  <!-- Local Business Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HomeAndConstructionBusiness",
+    "name": "Mabels Inspections",
+    "image": "https://www.mabelsinspections.com/logo.jpeg",
+    "@id": "https://www.mabelsinspections.com/",
+    "url": "https://www.mabelsinspections.com/",
+    "telephone": "+1-208-353-3483",
+    "areaServed": [
+      {"@type": "City", "name": "Twin Falls"},
+      {"@type": "City", "name": "Kimberly"},
+      {"@type": "City", "name": "Jerome"},
+      {"@type": "City", "name": "Filer"},
+      {"@type": "City", "name": "Hansen"},
+      {"@type": "City", "name": "Buhl"}
+    ],
+    "priceRange": "$$"
+  }
+  </script>
+
   <style>
     :root {
       --bg: #f7fbff;
@@ -46,12 +78,6 @@
     .section-card { background: var(--card); border:1px solid var(--border); border-radius:16px; padding:22px; box-shadow: var(--shadow); }
     .section-title { margin: 0 0 10px; font-size: clamp(20px, 2.5vw, 24px); }
     section { scroll-margin-top: 120px; margin-top: 28px; }
-
-    /* Hero - text only */
-    .hero { padding: 28px 0 8px; }
-    .hero h1 { font-size: clamp(28px, 4vw, 42px); line-height: 1.1; margin: 0 0 8px; }
-    .hero p { color: var(--muted); margin: 0 0 8px; }
-    .actions { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
 
     /* Services */
     .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
@@ -100,7 +126,7 @@
           </div>
         </div>
 
-        <!-- Images at the top: Option 1 (auto-fit, no scroll) -->
+        <!-- Images at the top, auto-fit (no horizontal scroll) -->
         <div style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;text-align:center;">
           <img src="logo.jpeg" alt="Mabels Inspections Logo" style="max-width:30%;height:auto;">
           <div style="max-width:30%;">
@@ -122,8 +148,9 @@
   </header>
 
   <section class="container hero">
-    <h1>Certified Master Inspector & Mold Remediation Contractor — Professional, Thorough, and Local</h1>
+    <h1>Home Inspector in Twin Falls, ID — Certified Master Inspector</h1>
     <p>Reliable home inspections and mold remediation guidance in Twin Falls, ID. Clear reports and straight talk so you can make confident decisions.</p>
+    <p><strong>Serving:</strong> Twin Falls, Kimberly, Jerome, Filer, Hansen, Buhl, and surrounding areas in Twin Falls County, Idaho.</p>
     <div class="actions">
       <a href="#contact" class="btn primary">Request an Inspection</a>
       <a href="#services" class="btn ghost">View Services</a>
@@ -144,6 +171,12 @@
       <div class="service"><h3>Mold Remediation Guidance</h3><p>Action plans and post‑remediation verification support.</p></div>
       <div class="service"><h3>Annual Maintenance</h3><p>Yearly checkups to keep your home safe, efficient, and well‑maintained.</p></div>
     </div>
+  </section>
+
+  <!-- Focused local section for relevance -->
+  <section class="container section-card" id="home-inspection-twin-falls">
+    <h2 class="section-title">Home Inspection — Twin Falls, ID</h2>
+    <p>I provide comprehensive home inspections in Twin Falls and nearby communities: roof, structure, electrical, plumbing, HVAC, interior/exterior, safety, and moisture issues. As a Certified Master Inspector, you’ll get a clear, photo-rich report within 24 hours.</p>
   </section>
 
   <section id="about" class="container section-card">
@@ -247,7 +280,7 @@
       } catch (err) {
         showAlert('Network error. Please check your connection and try again.', false);
       }
-    })
+    });
 
     // Footer year
     document.getElementById('y').textContent = new Date().getFullYear();
