@@ -20,6 +20,7 @@
     .container { width:min(1100px,92%); margin:0 auto; }
     a { color:var(--brand); text-decoration:none; }
 
+    /* Top header should scroll away (NOT sticky) */
     .site-header { background:var(--card); border-bottom:1px solid var(--border); position:relative; z-index:10; }
     .header-inner { padding:10px 0; }
     .brand-row { display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:center; }
@@ -30,7 +31,7 @@
 
     .btn { display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; font-weight:800; }
     .btn.success { background:#10b981; color:#fff; }
-    .btn-ghost-lg { border:1px solid var(--border); background:#fff; color:#ink; padding:14px 18px; border-radius:14px; font-weight:800; }
+    .btn-ghost-lg { border:1px solid var(--border); background:#fff; color:#0b1220; padding:14px 18px; border-radius:14px; font-weight:800; }
     .btn.cta-lg {
       background: linear-gradient(135deg, #0a3d91 0%, #1e90ff 100%);
       color: #fff; padding: 14px 22px; border-radius: 14px; font-size: 18px; line-height: 1;
@@ -64,6 +65,7 @@
     .site-footer { background: var(--card); border-top: 1px solid var(--border); margin-top: 28px; }
     .footer-inner { padding:20px 0; display:grid; grid-template-columns:2fr 1fr 1fr; gap:16px; align-items:center; }
 
+    /* Bottom booking banner: fixed on all devices */
     .sticky-bar { position:fixed; bottom:0; left:0; right:0; background:#ffffff; border-top:1px solid var(--border); box-shadow:0 -8px 24px rgba(2,6,23,.06); padding:10px; z-index:9999; }
     .sticky-bar .wrap { width:min(1100px,92%); margin:0 auto; display:flex; gap:10px; justify-content:center; }
     .sticky-bar a { flex:0 1 auto; text-align:center; min-width:160px; }
@@ -121,7 +123,7 @@
       <p class="small" style="margin-top:8px">Serving cities within ~50 miles of Filer, ID: Twin Falls • Filer • Buhl • Jerome • Kimberly • Hansen • Murtaugh • Eden • Hazelton • Hollister • Castleford • Rogerson • Bliss • Hagerman • Wendell • Gooding • Shoshone • Dietrich • Heyburn • Burley • Rupert • Paul • Oakley.</p>
     </div>
     <div style="text-align:center">
-      <img src="me-small.webp" alt="Mark Abels — Certified Master Inspector" style="width:100%;max-width:380px;height:auto;border-radius:14px;box-shadow:0 8px 24px rgba(2,6,23,.15);" />
+      <img src="me-small.webp" alt="Mark Abels — Certified Master Inspector" style="width:100%;max-width:380px;height:auto;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.15);" />
       <div style="margin-top:8px;font-weight:700;color:#0d47a1;">Mark Abels, CMI®</div>
       <img src="cmi-small.webp" alt="Certified Master Inspector (CMI)® badge" style="width:140px;height:auto;margin-top:6px" />
     </div>
@@ -157,12 +159,8 @@
     <p class="small" style="margin-top:8px;color:#6b7280">Ratings and excerpts are provided by Google via the Places API.</p>
     <p class="small" id="reviews-footer" style="margin-top:10px;display:none">Read more on <a id="reviews-link" href="#" target="_blank" rel="noopener">Google</a>.</p>
 
-    <div id="reviews-admin" style="display:none;margin-top:10px;border-top:1px dashed #e5e7eb;padding-top:10px">
-      <div class="small" style="color:#475569"><strong>Admin:</strong> Resolved Place ID and details</div>
-      <div id="resolved-name" class="small"></div>
-      <div id="resolved-pid" class="small" style="margin-top:4px"></div>
-      <button id="copy-pid" class="btn btn-ghost-lg" style="margin-top:8px">Copy Place ID</button>
-    </div>
+    <!-- Visible diagnostics for you while testing -->
+    <div id="reviews-diag" class="small" style="margin-top:10px;padding:10px;border:1px dashed #94a3b8;background:#f8fafc;border-radius:8px;white-space:pre-wrap"></div>
   </section>
 
   <section id="faq" class="container section-card">
@@ -224,7 +222,7 @@
     const alertBox = document.getElementById('form-alert');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const btn = form.querySelector('button[type=\"submit\"] .btn-text');
+      const btn = form.querySelector('button[type="submit"] .btn-text');
       if (btn) btn.textContent = 'Sending…';
       alertBox.style.display = 'none';
       const data = new FormData(form);
@@ -247,26 +245,12 @@
       }
     });
 
-    // ===== Google Reviews Configuration =====
+    // ===== Google Reviews Setup (with diagnostics) =====
     const GOOGLE_MAPS_API_KEY = "AIzaSyAp0i6EUfUcshG-O9DaF1ls87DOZOI6w8Q";
-    const PLACE_ID = ""; // optional; paste your exact Place ID for reliability
-    const USER_PID_RAW = "ChlJ9xdm|z6-rFQRo-6BMx|Mgbg";
-    const CID_FALLBACK = "14748690983600710767";
-    const STORAGE_KEY = 'PLACE_ID_OVERRIDE';
-
-    function candidatesFrom(raw) {
-      const cands = [];
-      if (!raw) return cands;
-      const trimmed = (raw + '').trim();
-      cands.push(trimmed);
-      cands.push(trimmed.replace(/\\|/g, ''));
-      cands.push(trimmed.replace(/\\|/g, '_'));
-      if (/^ChlJ/.test(trimmed)) cands.push(trimmed.replace(/^ChlJ/, 'ChIJ'));
-      const noPipes = trimmed.replace(/\\|/g, '');
-      if (/^ChlJ/.test(noPipes)) cands.push(noPipes.replace(/^ChlJ/, 'ChIJ'));
-      cands.push(trimmed.toUpperCase().replace(/\\|/g, ''));
-      return Array.from(new Set(cands)).filter(Boolean);
-    }
+    const PLACE_ID = "ChIJmZdABJvLr1QR5yZ_jC1j5b4"; // Mabels Inspections
+    const diagEl = document.getElementById('reviews-diag');
+    function log(msg){ diagEl.textContent += (diagEl.textContent ? "\\n" : "") + msg; }
+    log("Host: " + location.origin);
 
     function initReviews() {
       const section = document.getElementById('reviews');
@@ -278,11 +262,7 @@
       function renderStars(r) { const f = Math.round(r); return '★'.repeat(f) + '☆'.repeat(5-f); }
 
       if (!window.google || !google.maps || !google.maps.places) {
-        const warn = document.createElement('p');
-        warn.className = 'small';
-        warn.style.color = '#b91c1c';
-        warn.textContent = '⚠️ Google Maps JavaScript API not activated. Enable it in Google Cloud Console to show live reviews.';
-        section.appendChild(warn);
+        log("❌ google.maps not available — likely the Maps JavaScript API is not enabled or the key is blocked by referrer.");
         if (footer && link) { link.href = 'https://www.google.com/maps/search/?api=1&query=Mabels+Inspections+Twin+Falls+ID'; footer.style.display = 'block'; }
         return;
       }
@@ -291,94 +271,46 @@
       const map = new google.maps.Map(mapDiv, { center: { lat: 42.6292, lng: -114.5359 }, zoom: 12 });
       const svc = new google.maps.places.PlacesService(map);
 
-      function render(place) {
-        if (!place) return;
-        if (place.rating && place.user_ratings_total) {
-          summary.textContent = `${place.name} — ${place.rating.toFixed(1)} / 5.0 (${place.user_ratings_total} reviews)`;
-        }
-        list.innerHTML = '';
-        (place.reviews || []).slice(0,3).forEach(r => {
-          const card = document.createElement('div');
-          card.className = 'quote';
-          card.innerHTML = `<div class=\"stars\">${renderStars(r.rating)}</div>
-            <div style=\"margin-top:6px\"><strong>${r.author_name || 'Google user'}</strong></div>
-            <div class=\"small\" style=\"color:#6b7280\">${new Date(r.time*1000).toLocaleDateString()}</div>
-            <div style=\"margin-top:8px\">${(r.text || '').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
-          list.appendChild(card);
-        });
-        if (place.url) { link.href = place.url; footer.style.display = 'block'; }
-        section.style.display = 'block';
-      }
-
-      function loadByPID(pid) {
-        svc.getDetails({ placeId: pid, fields: ['name','url','rating','user_ratings_total','reviews','place_id'] }, (place, status) => {
-          if (status === google.maps.places.PlacesServiceStatus.OK && place) {
-            try { localStorage.setItem(STORAGE_KEY, pid); } catch(e) { }
-            render(place);
-          } else { tryNext(); }
-        });
-      }
-
-      async function cidToPID(cid) {
-        try {
-          const url = `https://maps.googleapis.com/maps/api/place/details/json?cid=${encodeURIComponent(cid)}&key=${GOOGLE_MAPS_API_KEY}`;
-          const resp = await fetch(url);
-          if (!resp.ok) return null;
-          const data = await resp.json();
-          return data && data.result && data.result.place_id ? data.result.place_id : null;
-        } catch(e) { return null; }
-      }
-
-      function autoResolve(cb) {
-        const guesses = [
-          'Mabels Inspections Twin Falls Idaho',
-          'Mabels Inspections Filer Idaho',
-          'Mabels Inspection Twin Falls ID',
-          'Mabels Inspections 208-353-3483',
-          'Mabels Inspections Certified master inspector Twin Falls Idaho'
-        ];
-        (function next() {
-          const q = guesses.shift();
-          if (!q) return cb(null);
-          const run = () => svc.findPlaceFromQuery({ query:q, fields:['place_id','name'] }, (res, st) => {
-            if (st === google.maps.places.PlacesServiceStatus.OK && res && res[0]) cb(res[0].place_id);
-            else svc.textSearch({ query:q }, (r2, st2) => {
-              if (st2 === google.maps.places.PlacesServiceStatus.OK && r2 && r2[0]) cb(r2[0].place_id);
-              else next();
-            });
+      log("→ Requesting Place Details for " + PLACE_ID);
+      svc.getDetails({ placeId: PLACE_ID, fields: ['name','url','rating','user_ratings_total','reviews','place_id'] }, (place, status) => {
+        log("getDetails status: " + status);
+        if (status === google.maps.places.PlacesServiceStatus.OK && place) {
+          if (place.rating && place.user_ratings_total) {
+            summary.textContent = `${place.name} — ${place.rating.toFixed(1)} / 5.0 (${place.user_ratings_total} reviews)`;
+          }
+          list.innerHTML = '';
+          (place.reviews || []).slice(0,3).forEach(r => {
+            const card = document.createElement('div');
+            card.className = 'quote';
+            card.innerHTML = `<div class="stars">${renderStars(r.rating)}</div>
+              <div style="margin-top:6px"><strong>${r.author_name || 'Google user'}</strong></div>
+              <div class="small" style="color:#6b7280">${new Date(r.time*1000).toLocaleDateString()}</div>
+              <div style="margin-top:8px">${(r.text || '').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+            list.appendChild(card);
           });
-          try { run(); } catch { next(); }
-        })();
-      }
-
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (PLACE_ID) return loadByPID(PLACE_ID);
-      if (stored) return loadByPID(stored);
-
-      const cands = candidatesFrom(USER_PID_RAW);
-      let idx = 0;
-      function tryNext() {
-        if (idx < cands.length) return loadByPID(cands[idx++]);
-        if (CID_FALLBACK) return cidToPID(CID_FALLBACK).then(pid => pid ? loadByPID(pid) : autoResolve(p => p ? loadByPID(p) : null));
-        autoResolve(p => p ? loadByPID(p) : null);
-      }
-      tryNext();
+          if (place.url) { link.href = place.url; footer.style.display = 'block'; }
+          log("✅ Reviews rendered.");
+        } else {
+          log("⚠️ PlacesService getDetails failed. Common causes: Places API disabled, billing inactive, incorrect Place ID.");
+          if (footer && link) { link.href = 'https://www.google.com/maps/search/?api=1&query=Mabels+Inspections+Twin+Falls+ID'; footer.style.display = 'block'; }
+        }
+      });
     }
 
+    // Load Maps JS with error handling (works on GitHub Pages)
     (function loadMaps(){
-      if (!GOOGLE_MAPS_API_KEY) {
-        const section = document.getElementById('reviews');
-        const warn = document.createElement('p');
-        warn.className = 'small';
-        warn.style.color = '#b91c1c';
-        warn.innerHTML = 'ℹ️ Add your Google Maps API key and Place ID to enable live review snippets.';
-        section.appendChild(warn);
-        return;
-      }
       const s = document.createElement('script');
       s.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&callback=initReviews`;
       s.async = true; s.defer = true;
+      s.onerror = () => {
+        log("❌ Failed to load Maps JS script. Check referrer restrictions and that 'Maps JavaScript API' is enabled.");
+      };
       document.head.appendChild(s);
+
+      // Helpful hint for GitHub Pages referrer patterns
+      if (location.hostname.endsWith('github.io')) {
+        log("ℹ️ If using GitHub Pages, add these referrers to your API key:\n  https://*.github.io/*\n  https://" + location.hostname + "/*");
+      }
     })();
   </script>
 </body>
