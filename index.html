@@ -14,13 +14,13 @@
   <meta property="og:image" content="https://www.mabelsinspections.com/logo.jpeg">
 
   <style>
-    :root { --bg:#f7fbff; --ink:#0b1220; --muted:#475569; --brand:#0a3d91; --accent:#1e90ff; --border:#e2e8f0; --card:#fff; --shadow:0 8px 24px rgba(2,6,23,.06);}
+    :root { --bg:#f7fbff; --ink:#0b1220; --muted:#475569; --brand:#0a3d91; --accent:#1e90ff; --border:#e2e8f0; --card:#fff; --shadow:0 8px 24px rgba(2,6,23,.06);} 
     * { box-sizing:border-box; } html,body { margin:0; padding:0; }
     body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--ink); line-height:1.55; padding-bottom:88px; }
     .container { width:min(1100px,92%); margin:0 auto; }
     a { color:var(--brand); text-decoration:none; }
 
-    /* Top header should scroll away (NOT sticky) */
+    /* Top header scrolls away */
     .site-header { background:var(--card); border-bottom:1px solid var(--border); position:relative; z-index:10; }
     .header-inner { padding:10px 0; }
     .brand-row { display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:center; }
@@ -40,12 +40,12 @@
       transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
       will-change: transform;
     }
-    .btn.cta-lg:hover { transform: translateY(-1px); filter: brightness(1.05); box-shadow: 0 14px 28px rgba(30,144,255,.28);}
-    .btn.cta-lg:active { transform: translateY(0); box-shadow: 0 8px 16px rgba(30,144,255,.22);}
+    .btn.cta-lg:hover { transform: translateY(-1px); filter: brightness(1.05); box-shadow: 0 14px 28px rgba(30,144,255,.28);} 
+    .btn.cta-lg:active { transform: translateY(0); box-shadow: 0 8px 16px rgba(30,144,255,.22);} 
 
     .section-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:22px; box-shadow:var(--shadow); }
     .section-title { margin: 0 0 10px; font-size: clamp(20px, 2.5vw, 24px); }
-    .small { font-size:12px; color:var(--muted);}
+    .small { font-size:12px; color:var(--muted);} 
 
     .hero { display:grid; grid-template-columns:1.15fr .85fr; gap:24px; align-items:center; margin-top:24px; }
     .trustbar { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:10px; }
@@ -65,14 +65,14 @@
     .site-footer { background: var(--card); border-top: 1px solid var(--border); margin-top: 28px; }
     .footer-inner { padding:20px 0; display:grid; grid-template-columns:2fr 1fr 1fr; gap:16px; align-items:center; }
 
-    /* Bottom booking banner: fixed on all devices */
-    .sticky-bar { position:fixed; bottom:0; left:0; right:0; background:#ffffff; border-top:1px solid var(--border); box-shadow:0 -8px 24px rgba(2,6,23,.06); padding:10px; z-index:9999; }
+    /* Bottom booking banner fixed */
+    .sticky-bar { position:fixed; bottom:0; left:0; right:0; background:#ffffff; border-top:1px solid var(--border); box-shadow:0 -8px 24px rgba(0,0,0,.06); padding:10px; z-index:9999; }
     .sticky-bar .wrap { width:min(1100px,92%); margin:0 auto; display:flex; gap:10px; justify-content:center; }
     .sticky-bar a { flex:0 1 auto; text-align:center; min-width:160px; }
 
     @media (max-width: 900px) {
       .brand-row { grid-template-columns: 1fr; }
-      .hero { grid-template-columns: 1fr; }
+      .hero { grid-template-columns: 1 fr; }
       .grid-3, .why, .testimonials { grid-template-columns: 1fr; }
       .footer-inner { grid-template-columns: 1fr; gap: 10px; }
     }
@@ -159,8 +159,7 @@
     <p class="small" style="margin-top:8px;color:#6b7280">Ratings and excerpts are provided by Google via the Places API.</p>
     <p class="small" id="reviews-footer" style="margin-top:10px;display:none">Read more on <a id="reviews-link" href="#" target="_blank" rel="noopener">Google</a>.</p>
 
-    <!-- Visible diagnostics for you while testing -->
-    <div id="reviews-diag" class="small" style="margin-top:10px;padding:10px;border:1px dashed #94a3b8;background:#f8fafc;border-radius:8px;white-space:pre-wrap"></div>
+    <div id="reviews-diag" class="small" style="margin-top:10px;padding:12px;border:2px dashed #ef4444;background:#fff7ed;border-radius:10px;white-space:pre-wrap;color:#7c2d12">Diagnostics loading…</div>
   </section>
 
   <section id="faq" class="container section-card">
@@ -230,7 +229,7 @@
         const res = await fetch(form.action, { method:'POST', headers:{'Accept':'application/json'}, body:data });
         if (res.ok) {
           form.reset();
-          alertBox.textContent = '✅ Thanks! Your request is in. I\\'ll reach out shortly to confirm your time.';
+          alertBox.textContent = '✅ Thanks! Your request is in. I\'ll reach out shortly to confirm your time.';
           alertBox.style.background = '#d1fae5'; alertBox.style.color = '#065f46'; alertBox.style.display = 'block';
           form.scrollIntoView({ behavior:'smooth', block:'start' });
         } else {
@@ -245,12 +244,14 @@
       }
     });
 
-    // ===== Google Reviews Setup (with diagnostics) =====
+    // ===== Google Reviews Setup (with strong diagnostics) =====
     const GOOGLE_MAPS_API_KEY = "AIzaSyAp0i6EUfUcshG-O9DaF1ls87DOZOI6w8Q";
     const PLACE_ID = "ChIJmZdABJvLr1QR5yZ_jC1j5b4"; // Mabels Inspections
     const diagEl = document.getElementById('reviews-diag');
-    function log(msg){ diagEl.textContent += (diagEl.textContent ? "\\n" : "") + msg; }
-    log("Host: " + location.origin);
+    function log(msg){ if(diagEl){ diagEl.textContent += (diagEl.textContent ? "\n" : "") + msg; } }
+    if (diagEl) diagEl.textContent = '';
+    log('Host: ' + location.origin);
+    log('Time: ' + new Date().toISOString());
 
     function initReviews() {
       const section = document.getElementById('reviews');
@@ -262,7 +263,7 @@
       function renderStars(r) { const f = Math.round(r); return '★'.repeat(f) + '☆'.repeat(5-f); }
 
       if (!window.google || !google.maps || !google.maps.places) {
-        log("❌ google.maps not available — likely the Maps JavaScript API is not enabled or the key is blocked by referrer.");
+        log('❌ google.maps not available — Maps JavaScript API likely blocked or disabled.');
         if (footer && link) { link.href = 'https://www.google.com/maps/search/?api=1&query=Mabels+Inspections+Twin+Falls+ID'; footer.style.display = 'block'; }
         return;
       }
@@ -271,9 +272,9 @@
       const map = new google.maps.Map(mapDiv, { center: { lat: 42.6292, lng: -114.5359 }, zoom: 12 });
       const svc = new google.maps.places.PlacesService(map);
 
-      log("→ Requesting Place Details for " + PLACE_ID);
+      log('→ Requesting Place Details for ' + PLACE_ID);
       svc.getDetails({ placeId: PLACE_ID, fields: ['name','url','rating','user_ratings_total','reviews','place_id'] }, (place, status) => {
-        log("getDetails status: " + status);
+        log('getDetails status: ' + status);
         if (status === google.maps.places.PlacesServiceStatus.OK && place) {
           if (place.rating && place.user_ratings_total) {
             summary.textContent = `${place.name} — ${place.rating.toFixed(1)} / 5.0 (${place.user_ratings_total} reviews)`;
@@ -289,28 +290,38 @@
             list.appendChild(card);
           });
           if (place.url) { link.href = place.url; footer.style.display = 'block'; }
-          log("✅ Reviews rendered.");
+          log('✅ Reviews rendered.');
         } else {
-          log("⚠️ PlacesService getDetails failed. Common causes: Places API disabled, billing inactive, incorrect Place ID.");
+          log('⚠️ PlacesService getDetails failed. Common causes: Places API disabled, billing inactive, incorrect Place ID, or referrer restriction.');
           if (footer && link) { link.href = 'https://www.google.com/maps/search/?api=1&query=Mabels+Inspections+Twin+Falls+ID'; footer.style.display = 'block'; }
         }
       });
     }
 
-    // Load Maps JS with error handling (works on GitHub Pages)
     (function loadMaps(){
       const s = document.createElement('script');
-      s.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&callback=initReviews`;
-      s.async = true; s.defer = true;
-      s.onerror = () => {
-        log("❌ Failed to load Maps JS script. Check referrer restrictions and that 'Maps JavaScript API' is enabled.");
-      };
+      const cbuster = Date.now();
+      s.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&v=weekly&callback=initReviews&_=${cbuster}`;
+      s.async = true; s.defer = true; s.crossOrigin = 'anonymous';
+      s.onerror = () => { log('❌ Failed to load Maps JS script. Check referrer restrictions and that APIs are enabled.'); };
       document.head.appendChild(s);
 
-      // Helpful hint for GitHub Pages referrer patterns
-      if (location.hostname.endsWith('github.io')) {
-        log("ℹ️ If using GitHub Pages, add these referrers to your API key:\n  https://*.github.io/*\n  https://" + location.hostname + "/*");
-      }
+      setTimeout(() => {
+        if (!window.google || !google.maps || !google.maps.places) {
+          log('⚠️ Maps JS not initialized after 5s. Check:');
+          log('  • Maps JavaScript API: Enabled');
+          log('  • Places API: Enabled');
+          log('  • Billing: Active');
+          log('  • Key referrers include your site (and GitHub Pages if used):');
+          log('    https://*.github.io/*');
+          log('    https://' + location.hostname + '/*');
+          const footer = document.getElementById('reviews-footer');
+          const link = document.getElementById('reviews-link');
+          if (footer && link) { link.href = 'https://www.google.com/maps/search/?api=1&query=Mabels+Inspections+Twin+Falls+ID'; footer.style.display = 'block'; }
+        } else {
+          log('✅ Maps JS loaded.');
+        }
+      }, 5000);
     })();
   </script>
 </body>
