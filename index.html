@@ -20,7 +20,6 @@
     .container { width:min(1100px,92%); margin:0 auto; }
     a { color:var(--brand); text-decoration:none; }
 
-    /* TOP HEADER: scrolls away (NOT sticky/fixed) */
     .site-header { background:var(--card); border-bottom:1px solid var(--border); position:relative; z-index:10; }
     .header-inner { padding:10px 0; }
     .brand-row { display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:center; }
@@ -31,7 +30,7 @@
 
     .btn { display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; font-weight:800; }
     .btn.success { background:#10b981; color:#fff; }
-    .btn-ghost-lg { border:1px solid var(--border); background:#fff; color:var(--ink); padding:14px 18px; border-radius:14px; font-weight:800; }
+    .btn-ghost-lg { border:1px solid var(--border); background:#fff; color:#ink; padding:14px 18px; border-radius:14px; font-weight:800; }
     .btn.cta-lg {
       background: linear-gradient(135deg, #0a3d91 0%, #1e90ff 100%);
       color: #fff; padding: 14px 22px; border-radius: 14px; font-size: 18px; line-height: 1;
@@ -65,7 +64,6 @@
     .site-footer { background: var(--card); border-top: 1px solid var(--border); margin-top: 28px; }
     .footer-inner { padding:20px 0; display:grid; grid-template-columns:2fr 1fr 1fr; gap:16px; align-items:center; }
 
-    /* BOTTOM STICKY BOOKING BAR: keep fixed on all devices */
     .sticky-bar { position:fixed; bottom:0; left:0; right:0; background:#ffffff; border-top:1px solid var(--border); box-shadow:0 -8px 24px rgba(2,6,23,.06); padding:10px; z-index:9999; }
     .sticky-bar .wrap { width:min(1100px,92%); margin:0 auto; display:flex; gap:10px; justify-content:center; }
     .sticky-bar a { flex:0 1 auto; text-align:center; min-width:160px; }
@@ -212,7 +210,6 @@
     </div>
   </footer>
 
-  <!-- Bottom sticky booking bar (unchanged and always visible) -->
   <div class="sticky-bar" aria-hidden="false">
     <div class="wrap">
       <a href="#contact" class="btn cta-lg">📅 Book — $500</a>
@@ -227,7 +224,7 @@
     const alertBox = document.getElementById('form-alert');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const btn = form.querySelector('button[type="submit"] .btn-text');
+      const btn = form.querySelector('button[type=\"submit\"] .btn-text');
       if (btn) btn.textContent = 'Sending…';
       alertBox.style.display = 'none';
       const data = new FormData(form);
@@ -250,8 +247,9 @@
       }
     });
 
-    // ===== Google Reviews (defensive; won’t break without an API key) =====
-    const GOOGLE_MAPS_API_KEY = "YOUR_API_KEY_HERE"; // Replace with your Maps JavaScript API key (enabled for Maps JavaScript API + Places API)
+    // ===== Google Reviews Configuration =====
+    const GOOGLE_MAPS_API_KEY = "AIzaSyAp0i6EUfUcshG-O9DaF1ls87DOZOI6w8Q";
+    const PLACE_ID = ""; // optional; paste your exact Place ID for reliability
     const USER_PID_RAW = "ChlJ9xdm|z6-rFQRo-6BMx|Mgbg";
     const CID_FALLBACK = "14748690983600710767";
     const STORAGE_KEY = 'PLACE_ID_OVERRIDE';
@@ -285,6 +283,7 @@
         warn.style.color = '#b91c1c';
         warn.textContent = '⚠️ Google Maps JavaScript API not activated. Enable it in Google Cloud Console to show live reviews.';
         section.appendChild(warn);
+        if (footer && link) { link.href = 'https://www.google.com/maps/search/?api=1&query=Mabels+Inspections+Twin+Falls+ID'; footer.style.display = 'block'; }
         return;
       }
 
@@ -301,32 +300,13 @@
         (place.reviews || []).slice(0,3).forEach(r => {
           const card = document.createElement('div');
           card.className = 'quote';
-          card.innerHTML = `<div class="stars">${renderStars(r.rating)}</div>
-            <div style="margin-top:6px"><strong>${r.author_name || 'Google user'}</strong></div>
-            <div class="small" style="color:#6b7280">${new Date(r.time*1000).toLocaleDateString()}</div>
-            <div style="margin-top:8px">${(r.text || '').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+          card.innerHTML = `<div class=\"stars\">${renderStars(r.rating)}</div>
+            <div style=\"margin-top:6px\"><strong>${r.author_name || 'Google user'}</strong></div>
+            <div class=\"small\" style=\"color:#6b7280\">${new Date(r.time*1000).toLocaleDateString()}</div>
+            <div style=\"margin-top:8px\">${(r.text || '').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
           list.appendChild(card);
         });
         if (place.url) { link.href = place.url; footer.style.display = 'block'; }
-        try {
-          if (location.hash === '#reviews-setup') {
-            const adminBox = document.getElementById('reviews-admin');
-            if (adminBox) {
-              adminBox.style.display = 'block';
-              document.getElementById('resolved-name').textContent = 'Name: ' + (place.name || '');
-              document.getElementById('resolved-pid').textContent = 'Place ID: ' + (place.place_id || '');
-              const copyBtn = document.getElementById('copy-pid');
-              if (copyBtn) {
-                copyBtn.onclick = () => {
-                  navigator.clipboard.writeText(place.place_id || '').then(()=>{
-                    copyBtn.textContent = 'Copied!';
-                    setTimeout(()=>copyBtn.textContent='Copy Place ID', 1200);
-                  });
-                };
-              }
-            }
-          }
-        } catch(e) { }
         section.style.display = 'block';
       }
 
@@ -372,6 +352,7 @@
       }
 
       const stored = localStorage.getItem(STORAGE_KEY);
+      if (PLACE_ID) return loadByPID(PLACE_ID);
       if (stored) return loadByPID(stored);
 
       const cands = candidatesFrom(USER_PID_RAW);
@@ -384,14 +365,13 @@
       tryNext();
     }
 
-    // Only load Maps script if a real API key is present
     (function loadMaps(){
-      if (!GOOGLE_MAPS_API_KEY || GOOGLE_MAPS_API_KEY === "YOUR_API_KEY_HERE") {
+      if (!GOOGLE_MAPS_API_KEY) {
         const section = document.getElementById('reviews');
         const warn = document.createElement('p');
         warn.className = 'small';
         warn.style.color = '#b91c1c';
-        warn.textContent = 'ℹ️ Add your Google Maps API key to enable live Google review snippets.';
+        warn.innerHTML = 'ℹ️ Add your Google Maps API key and Place ID to enable live review snippets.';
         section.appendChild(warn);
         return;
       }
@@ -399,16 +379,6 @@
       s.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&callback=initReviews`;
       s.async = true; s.defer = true;
       document.head.appendChild(s);
-    })();
-
-    // ===== Console self-checks =====
-    (function selfTest(){
-      const text = document.body.innerText;
-      if (text.includes('$400')) console.warn('Found $400 — expected all pricing to be $500.');
-      const headerPos = getComputedStyle(document.querySelector('.site-header')).position;
-      if (headerPos === 'sticky' or headerPos == 'fixed') console.warn('Header should scroll away (not fixed/sticky).');
-      const barPos = getComputedStyle(document.querySelector('.sticky-bar')).position;
-      if (barPos !== 'fixed') console.warn('Bottom booking bar is not fixed.');
     })();
   </script>
 </body>
