@@ -6,54 +6,37 @@
   <title>Home Inspector in Twin Falls, ID | Certified Master Inspector – Mabels Inspections</title>
   <meta name="description" content="Certified Master Inspector serving Twin Falls and nearby Idaho cities. $500 flat fee. Same/next-day slots. Photo-rich reports in 24 hours. Call (208) 353-3483 or book online.">
   <link rel="canonical" href="https://www.mabelsinspections.com/" />
-
   <meta property="og:title" content="Home Inspector in Twin Falls, ID – Mabels Inspections">
   <meta property="og:description" content="$500 flat fee. Same/next-day scheduling. 24-hour photo-rich reports.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.mabelsinspections.com/">
   <meta property="og:image" content="https://www.mabelsinspections.com/logo.jpeg">
-
   <style>
-    :root { --bg:#f7fbff; --ink:#0b1220; --muted:#475569; --brand:#0a3d91; --accent:#1e90ff; --border:#e2e8f0; --card:#fff; --shadow:0 8px 24px rgba(2,6,23,.06);} 
+    :root { --bg:#f7fbff; --ink:#0b1220; --muted:#475569; --brand:#0a3d91; --accent:#1e90ff; --border:#e2e8f0; --card:#fff; --shadow:0 8px 24px rgba(2,6,23,.06);}
     * { box-sizing:border-box; } html,body { margin:0; padding:0; }
-    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--ink); line-height:1.55; padding-bottom:88px; }
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--ink); line-height:1.55; }
     .container { width:min(1100px,92%); margin:0 auto; }
     a { color:var(--brand); text-decoration:none; }
-
-    /* Top header scrolls away */
-    .site-header { background:var(--card); border-bottom:1px solid var(--border); position:relative; z-index:10; }
+    .site-header { background:var(--card); border-bottom:1px solid var(--border); }
     .header-inner { padding:10px 0; }
     .brand-row { display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:center; }
     .brand-left { display:flex; align-items:center; gap:12px; }
     .title { font-weight:800; letter-spacing:.2px; font-size:clamp(22px,3vw,28px); }
     .subtitle, .verified { font-size:14px; color:var(--muted); }
     .nav-row { display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; align-items:center; }
-
     .btn { display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; font-weight:800; }
     .btn.success { background:#10b981; color:#fff; }
     .btn-ghost-lg { border:1px solid var(--border); background:#fff; color:#0b1220; padding:14px 18px; border-radius:14px; font-weight:800; }
-    .btn.cta-lg {
-      background: linear-gradient(135deg, #0a3d91 0%, #1e90ff 100%);
-      color: #fff; padding: 14px 22px; border-radius: 14px; font-size: 18px; line-height: 1;
-      box-shadow: 0 12px 24px rgba(30,144,255,.25);
-      transform: translateY(0);
-      transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
-      will-change: transform;
-    }
-    .btn.cta-lg:hover { transform: translateY(-1px); filter: brightness(1.05); box-shadow: 0 14px 28px rgba(30,144,255,.28);} 
-    .btn.cta-lg:active { transform: translateY(0); box-shadow: 0 8px 16px rgba(30,144,255,.22);} 
-
+    .btn.cta-lg { background: linear-gradient(135deg, #0a3d91 0%, #1e90ff 100%); color: #fff; padding: 14px 22px; border-radius: 14px; font-size: 18px; line-height: 1; box-shadow: 0 12px 24px rgba(30,144,255,.25); }
     .section-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:22px; box-shadow:var(--shadow); }
     .section-title { margin: 0 0 10px; font-size: clamp(20px, 2.5vw, 24px); }
-    .small { font-size:12px; color:var(--muted);} 
-
+    .small { font-size:12px; color:var(--muted); }
     .hero { display:grid; grid-template-columns:1.15fr .85fr; gap:24px; align-items:center; margin-top:24px; }
     .trustbar { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:10px; }
     .trustbar .pill { background:#f1f5f9; border:1px solid var(--border); padding:6px 10px; border-radius:999px; font-size:13px; }
     .microcopy { font-size:12px; color:#445; opacity:.9; margin-top:6px; }
     .trust-inline { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:8px; color:#0a3d91; font-weight:700; font-size:13px; }
     .trust-inline .pill { background:#eef6ff; border:1px solid var(--border); padding:6px 10px; border-radius:999px; }
-
     .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
     .service { background:#f8fbff; border:1px solid var(--border); border-radius:12px; padding:16px; }
     .why { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
@@ -61,18 +44,14 @@
     .testimonials { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:12px; }
     .quote { border:1px solid var(--border); border-radius:12px; padding:14px; }
     .stars { font-size:18px; color:#f59e0b; }
-
     .site-footer { background: var(--card); border-top: 1px solid var(--border); margin-top: 28px; }
     .footer-inner { padding:20px 0; display:grid; grid-template-columns:2fr 1fr 1fr; gap:16px; align-items:center; }
-
-    /* Bottom booking banner fixed */
-    .sticky-bar { position:fixed; bottom:0; left:0; right:0; background:#ffffff; border-top:1px solid var(--border); box-shadow:0 -8px 24px rgba(0,0,0,.06); padding:10px; z-index:9999; }
-    .sticky-bar .wrap { width:min(1100px,92%); margin:0 auto; display:flex; gap:10px; justify-content:center; }
-    .sticky-bar a { flex:0 1 auto; text-align:center; min-width:160px; }
-
+    .sticky-bar { position:fixed; bottom:0; left:0; right:0; background:#ffffff; border-top:1px solid var(--border); box-shadow:0 -8px 24px rgba(2,6,23,.06); padding:10px; z-index:40; }
+    .sticky-bar .wrap { width:min(1100px,92%); margin:0 auto; display:flex; gap:10px; }
+    .sticky-bar a { flex:1; text-align:center; }
     @media (max-width: 900px) {
       .brand-row { grid-template-columns: 1fr; }
-      .hero { grid-template-columns: 1 fr; }
+      .hero { grid-template-columns: 1fr; }
       .grid-3, .why, .testimonials { grid-template-columns: 1fr; }
       .footer-inner { grid-template-columns: 1fr; gap: 10px; }
     }
@@ -101,7 +80,6 @@
       </div>
     </div>
   </header>
-
   <section class="container hero">
     <div>
       <h1>$500 Flat‑Fee Home Inspections — Photo‑Rich Reports in 24 Hours</h1>
@@ -112,10 +90,7 @@
         <span class="pill">Mold inspection available</span>
       </div>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px">
-        <a href="#contact" class="btn cta-lg" aria-label="Book a home inspection for $500">
-          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 11h10v2H7zM5 3h14a2 2 0 0 1 2 2v3H3V5a2 2 0 0 1 2-2zm-2 8h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8zm4 5h4v2H7v-2z"/></svg>
-          Book Inspection — $500
-        </a>
+        <a href="#contact" class="btn cta-lg">📅 Book — $500</a>
         <a href="tel:2083533483" class="btn btn-ghost-lg">Call Mark: (208) 353‑3483</a>
       </div>
       <div class="microcopy">No payment required to book. You’ll get a confirmation text/call.</div>
@@ -123,12 +98,11 @@
       <p class="small" style="margin-top:8px">Serving cities within ~50 miles of Filer, ID: Twin Falls • Filer • Buhl • Jerome • Kimberly • Hansen • Murtaugh • Eden • Hazelton • Hollister • Castleford • Rogerson • Bliss • Hagerman • Wendell • Gooding • Shoshone • Dietrich • Heyburn • Burley • Rupert • Paul • Oakley.</p>
     </div>
     <div style="text-align:center">
-      <img src="me-small.webp" alt="Mark Abels — Certified Master Inspector" style="width:100%;max-width:380px;height:auto;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.15);" />
+      <img src="me-small.webp" alt="Mark Abels — Certified Master Inspector" style="width:100%;max-width:380px;height:auto;border-radius:14px;box-shadow:0 8px 24px rgba(2,6,23,.15);" />
       <div style="margin-top:8px;font-weight:700;color:#0d47a1;">Mark Abels, CMI®</div>
       <img src="cmi-small.webp" alt="Certified Master Inspector (CMI)® badge" style="width:140px;height:auto;margin-top:6px" />
     </div>
   </section>
-
   <section id="services" class="container section-card">
     <h2 class="section-title">Services</h2>
     <div class="grid-3" style="margin-top:12px">
@@ -140,7 +114,6 @@
       <div class="service"><h3>Annual Maintenance</h3><p>Yearly checkups to keep your home safe, efficient, and well‑maintained.</p></div>
     </div>
   </section>
-
   <section id="why" class="container section-card">
     <h2 class="section-title">Why Choose Mabels Inspections</h2>
     <div class="why">
@@ -149,19 +122,17 @@
       <div class="card"><strong>Agent‑Friendly</strong><br/>Realtors trust our speed and clarity. We coordinate smoothly with your timeline.</div>
     </div>
   </section>
-
   <section id="reviews" class="container section-card" style="border-color:#e5e7eb">
-    <h2 class="section-title" style="display:flex;align-items:center;gap:10px">
-      Reviews from Google <img src="https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg" alt="Google" style="height:20px;width:auto">
+    <h2 class="section-title" style="display:flex;align-items:center;gap:10px">Reviews from Google
+      <img src="https://www.gstatic.com/images/branding/googlelogo/svg/googlelogo_clr_74x24px.svg" alt="Google" style="height:20px;width:auto">
     </h2>
     <div id="reviews-summary" class="small" style="margin-bottom:10px;color:var(--muted)"></div>
     <div id="reviews-list" class="testimonials"></div>
     <p class="small" style="margin-top:8px;color:#6b7280">Ratings and excerpts are provided by Google via the Places API.</p>
     <p class="small" id="reviews-footer" style="margin-top:10px;display:none">Read more on <a id="reviews-link" href="#" target="_blank" rel="noopener">Google</a>.</p>
-
-    <div id="reviews-diag" class="small" style="margin-top:10px;padding:12px;border:2px dashed #ef4444;background:#fff7ed;border-radius:10px;white-space:pre-wrap;color:#7c2d12">Diagnostics loading…</div>
+    <div id="reviews-diag" class="small" style="margin-top:10px;padding:12px;border:2px dashed #ef4444;background:#fff7ed;border-radius:10px;white-space:pre-wrap;color:#7c2d12"></div>
+    <pre id="js-console" style="margin-top:8px;padding:10px;border:1px dashed #94a3b8;background:#f8fafc;border-radius:8px;white-space:pre-wrap;max-height:260px;overflow:auto;color:#0b1220">Console booting…</pre>
   </section>
-
   <section id="faq" class="container section-card">
     <h2 class="section-title">FAQs</h2>
     <details><summary><strong>How much does a home inspection cost?</strong></summary><p>Most single‑family homes are a flat $500. Larger properties or special add‑ons (extensive outbuildings, unusual square footage) may be quoted case‑by‑case.</p></details>
@@ -169,12 +140,10 @@
     <details><summary><strong>Do you inspect for mold?</strong></summary><p>Yes — moisture mapping and visible growth assessment are available, along with guidance for remediation and post‑remediation checks.</p></details>
     <details><summary><strong>What’s your service area?</strong></summary><p>Twin Falls • Filer • Buhl • Jerome • Kimberly • Hansen • Murtaugh • Eden • Hazelton • Hollister • Castleford • Rogerson • Bliss • Hagerman • Wendell • Gooding • Shoshone • Dietrich • Heyburn • Burley • Rupert • Paul • Oakley</p></details>
   </section>
-
   <section id="contact" class="container section-card">
     <h2 class="section-title">$500 Flat Fee — Book Now</h2>
     <p class="small" style="color:var(--muted)">Tell me a few details and I’ll reply promptly. Prefer to talk? Call <a href="tel:2083533483">(208) 353‑3483</a>.</p>
     <div id="form-alert" style="display:none;border-radius:12px;padding:12px;margin-bottom:10px"></div>
-
     <form id="contactForm" class="contact-form" action="https://formspree.io/f/xgvzdgak" method="POST" accept-charset="UTF-8" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
       <div><label for="name">Full name</label><input id="name" name="name" required /></div>
       <div><label for="phone">Phone</label><input id="phone" name="phone" required /></div>
@@ -191,7 +160,6 @@
       <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
     </form>
   </section>
-
   <footer class="site-footer">
     <div class="container footer-inner">
       <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
@@ -206,120 +174,150 @@
       <div><div class="small">Phone <a href="tel:2083533483">(208) 353‑3483</a><br/><a href="mailto:mabelsllc@gmail.com">mabelsllc@gmail.com</a><br/>© <span id="y"></span> Mabels Inspections</div></div>
     </div>
   </footer>
-
   <div class="sticky-bar" aria-hidden="false">
     <div class="wrap">
       <a href="#contact" class="btn cta-lg">📅 Book — $500</a>
       <a href="tel:2083533483" class="btn btn-ghost-lg">📞 Call</a>
     </div>
   </div>
-
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    const form = document.getElementById('contactForm');
-    const alertBox = document.getElementById('form-alert');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = form.querySelector('button[type="submit"] .btn-text');
-      if (btn) btn.textContent = 'Sending…';
-      alertBox.style.display = 'none';
-      const data = new FormData(form);
-      try {
-        const res = await fetch(form.action, { method:'POST', headers:{'Accept':'application/json'}, body:data });
-        if (res.ok) {
-          form.reset();
-          alertBox.textContent = '✅ Thanks! Your request is in. I\'ll reach out shortly to confirm your time.';
-          alertBox.style.background = '#d1fae5'; alertBox.style.color = '#065f46'; alertBox.style.display = 'block';
-          form.scrollIntoView({ behavior:'smooth', block:'start' });
-        } else {
-          alertBox.textContent = 'Something went wrong. Please try again later.';
-          alertBox.style.background = '#fee2e2'; alertBox.style.color = '#7f1d1d'; alertBox.style.display = 'block';
-        }
-      } catch(err) {
-        alertBox.textContent = 'Network error. Please check your connection and try again.';
-        alertBox.style.background = '#fee2e2'; alertBox.style.color = '#7f1d1d'; alertBox.style.display = 'block';
-      } finally {
-        if (btn) btn.textContent = 'Send Request';
+    (function bootLogger(){
+      const diag = document.getElementById('reviews-diag');
+      const jsc = document.getElementById('js-console');
+      function say(m){
+        const line = (typeof m === 'string') ? m : (m && m.message) || String(m);
+        if (diag) diag.textContent += (diag.textContent ? '\n' : '') + line;
+        if (jsc)  jsc.textContent  += (jsc.textContent  ? '\n' : '') + line;
       }
-    });
-
-    // ===== Google Reviews Setup (with strong diagnostics) =====
+      window.__say = say;
+      if (diag) diag.textContent = 'Host: ' + location.origin + '\nTime: ' + new Date().toISOString();
+      say('✅ JS booted. readyState=' + document.readyState);
+      window.addEventListener('DOMContentLoaded', () => say('✅ DOMContentLoaded fired'));
+      window.onerror = function(msg, src, line, col, err){
+        say('❌ JS Error: ' + msg + ' @ ' + (src||'') + ':' + (line||'?') + ':' + (col||'?'));
+        if (err && err.stack) say(err.stack);
+        return false;
+      };
+      window.addEventListener('unhandledrejection', e => {
+        say('❌ Promise rejection: ' + (e.reason && (e.reason.message || e.reason)) );
+        if (e.reason && e.reason.stack) say(e.reason.stack);
+      });
+    })();
+    document.getElementById('y').textContent = new Date().getFullYear();
+    (function(){
+      const form = document.getElementById('contactForm');
+      const alertBox = document.getElementById('form-alert');
+      if (!form) { __say && __say('contact form not found'); return; }
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"] .btn-text');
+        if (btn) btn.textContent = 'Sending…';
+        if (alertBox) alertBox.style.display = 'none';
+        const data = new FormData(form);
+        try {
+          const res = await fetch(form.action, { method:'POST', headers:{'Accept':'application/json'}, body:data });
+          if (res.ok) {
+            form.reset();
+            if (alertBox){
+              alertBox.textContent = '✅ Thanks! Your request is in. I\'ll reach out shortly to confirm your time.';
+              alertBox.style.background = '#d1fae5'; alertBox.style.color = '#065f46'; alertBox.style.display = 'block';
+              form.scrollIntoView({ behavior:'smooth', block:'start' });
+            }
+          } else {
+            if (alertBox){
+              alertBox.textContent = 'Something went wrong. Please try again later.';
+              alertBox.style.background = '#fee2e2'; alertBox.style.color = '#7f1d1d'; alertBox.style.display = 'block';
+            }
+          }
+        } catch(err) {
+          if (alertBox){
+            alertBox.textContent = 'Network error. Please check your connection and try again.';
+            alertBox.style.background = '#fee2e2'; alertBox.style.color = '#7f1d1d'; alertBox.style.display = 'block';
+          }
+          __say && __say('Form error: ' + (err && err.message));
+        } finally {
+          if (btn) btn.textContent = 'Send Request';
+        }
+      });
+    })();
     const GOOGLE_MAPS_API_KEY = "AIzaSyAp0i6EUfUcshG-O9DaF1ls87DOZOI6w8Q";
-    const PLACE_ID = "ChIJmZdABJvLr1QR5yZ_jC1j5b4"; // Mabels Inspections
-    const diagEl = document.getElementById('reviews-diag');
-    function log(msg){ if(diagEl){ diagEl.textContent += (diagEl.textContent ? "\n" : "") + msg; } }
-    if (diagEl) diagEl.textContent = '';
-    log('Host: ' + location.origin);
-    log('Time: ' + new Date().toISOString());
-
-    function initReviews() {
-      const section = document.getElementById('reviews');
+    const PLACE_QUERY = "Mabels Inspections Certified master inspector Twin Falls";
+    const LOCATION_BIAS = { lat: 42.648798, lng: -114.5359366 };
+    function renderReviews(place){
       const list = document.getElementById('reviews-list');
       const summary = document.getElementById('reviews-summary');
       const footer = document.getElementById('reviews-footer');
       const link = document.getElementById('reviews-link');
-
-      function renderStars(r) { const f = Math.round(r); return '★'.repeat(f) + '☆'.repeat(5-f); }
-
+      function stars(r){ const f = Math.round(r); return '★'.repeat(f) + '☆'.repeat(5-f); }
+      if (place.rating && place.user_ratings_total) {
+        summary.textContent = `${place.name} — ${place.rating.toFixed(1)} / 5.0 (${place.user_ratings_total} reviews)`;
+      }
+      list.innerHTML = '';
+      (place.reviews || []).slice(0,3).forEach(r => {
+        const card = document.createElement('div');
+        card.className = 'quote';
+        card.innerHTML = `<div class="stars">${stars(r.rating)}</div>
+          <div style="margin-top:6px"><strong>${r.author_name || 'Google user'}</strong></div>
+          <div class="small" style="color:#6b7280">${new Date(r.time*1000).toLocaleDateString()}</div>
+          <div style="margin-top:8px">${(r.text || '').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+        list.appendChild(card);
+      });
+      if (place.url) { link.href = place.url; footer.style.display = 'block'; }
+      __say && __say('✅ Reviews rendered.');
+    }
+    function initReviews(){
       if (!window.google || !google.maps || !google.maps.places) {
-        log('❌ google.maps not available — Maps JavaScript API likely blocked or disabled.');
+        __say && __say('❌ google.maps not available — key restrictions or API disabled.');
+        const footer = document.getElementById('reviews-footer');
+        const link = document.getElementById('reviews-link');
         if (footer && link) { link.href = 'https://www.google.com/maps/search/?api=1&query=Mabels+Inspections+Twin+Falls+ID'; footer.style.display = 'block'; }
         return;
       }
-
       const mapDiv = document.createElement('div'); mapDiv.style.display='none'; document.body.appendChild(mapDiv);
-      const map = new google.maps.Map(mapDiv, { center: { lat: 42.6292, lng: -114.5359 }, zoom: 12 });
+      const map = new google.maps.Map(mapDiv, { center: LOCATION_BIAS, zoom: 12 });
       const svc = new google.maps.places.PlacesService(map);
-
-      log('→ Requesting Place Details for ' + PLACE_ID);
-      svc.getDetails({ placeId: PLACE_ID, fields: ['name','url','rating','user_ratings_total','reviews','place_id'] }, (place, status) => {
-        log('getDetails status: ' + status);
-        if (status === google.maps.places.PlacesServiceStatus.OK && place) {
-          if (place.rating && place.user_ratings_total) {
-            summary.textContent = `${place.name} — ${place.rating.toFixed(1)} / 5.0 (${place.user_ratings_total} reviews)`;
-          }
-          list.innerHTML = '';
-          (place.reviews || []).slice(0,3).forEach(r => {
-            const card = document.createElement('div');
-            card.className = 'quote';
-            card.innerHTML = `<div class="stars">${renderStars(r.rating)}</div>
-              <div style="margin-top:6px"><strong>${r.author_name || 'Google user'}</strong></div>
-              <div class="small" style="color:#6b7280">${new Date(r.time*1000).toLocaleDateString()}</div>
-              <div style="margin-top:8px">${(r.text || '').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
-            list.appendChild(card);
-          });
-          if (place.url) { link.href = place.url; footer.style.display = 'block'; }
-          log('✅ Reviews rendered.');
-        } else {
-          log('⚠️ PlacesService getDetails failed. Common causes: Places API disabled, billing inactive, incorrect Place ID, or referrer restriction.');
-          if (footer && link) { link.href = 'https://www.google.com/maps/search/?api=1&query=Mabels+Inspections+Twin+Falls+ID'; footer.style.display = 'block'; }
+      __say && __say('↪ Searching by query: ' + PLACE_QUERY);
+      svc.findPlaceFromQuery({ query: PLACE_QUERY, fields: ['place_id','name'] }, (res, st) => {
+        __say && __say('findPlaceFromQuery status: ' + st + (res && res[0] ? ' (found)' : ' (none)'));
+        if (st === google.maps.places.PlacesServiceStatus.OK && res && res[0]) {
+          return details(res[0].place_id);
         }
+        svc.textSearch({ query: PLACE_QUERY, location: LOCATION_BIAS, radius: 60000 }, (res2, st2) => {
+          __say && __say('textSearch status: ' + st2 + (res2 && res2[0] ? ' (found)' : ' (none)'));
+          const pid = res2 && res2[0] && res2[0].place_id;
+          if (!pid) {
+            __say && __say('❌ Could not resolve Place ID. Check business visibility or key restrictions.');
+            const footer = document.getElementById('reviews-footer');
+            const link = document.getElementById('reviews-link');
+            if (footer && link) { link.href = 'https://www.google.com/maps/search/?api=1&query=Mabels+Inspections+Twin+Falls+ID'; footer.style.display = 'block'; }
+            return;
+          }
+          details(pid);
+        });
       });
+      function details(pid){
+        __say && __say('→ Requesting Place Details for ' + pid);
+        svc.getDetails({ placeId: pid, fields: ['name','url','rating','user_ratings_total','reviews'] }, (place, status) => {
+          __say && __say('getDetails status: ' + status);
+          if (status === google.maps.places.PlacesServiceStatus.OK && place) return renderReviews(place);
+          __say && __say('❌ getDetails failed for resolved PID — often key referrer rules.');
+        });
+      }
     }
-
     (function loadMaps(){
+      __say && __say('↪ Loading Maps JS…');
       const s = document.createElement('script');
       const cbuster = Date.now();
       s.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&v=weekly&callback=initReviews&_=${cbuster}`;
       s.async = true; s.defer = true; s.crossOrigin = 'anonymous';
-      s.onerror = () => { log('❌ Failed to load Maps JS script. Check referrer restrictions and that APIs are enabled.'); };
+      s.onerror = () => { __say && __say('❌ Failed to load Maps JS — check HTTP referrer rules & enabled APIs.'); };
       document.head.appendChild(s);
-
       setTimeout(() => {
         if (!window.google || !google.maps || !google.maps.places) {
-          log('⚠️ Maps JS not initialized after 5s. Check:');
-          log('  • Maps JavaScript API: Enabled');
-          log('  • Places API: Enabled');
-          log('  • Billing: Active');
-          log('  • Key referrers include your site (and GitHub Pages if used):');
-          log('    https://*.github.io/*');
-          log('    https://' + location.hostname + '/*');
-          const footer = document.getElementById('reviews-footer');
-          const link = document.getElementById('reviews-link');
-          if (footer && link) { link.href = 'https://www.google.com/maps/search/?api=1&query=Mabels+Inspections+Twin+Falls+ID'; footer.style.display = 'block'; }
+          __say && __say('⚠️ Maps JS not initialized after 5s. Ensure: Maps JavaScript API + Places API enabled, Billing active, referrers include:');
+          __say && __say('   https://mabelsinspections.com/*'); __say && __say('   https://www.mabelsinspections.com/*');
         } else {
-          log('✅ Maps JS loaded.');
+          __say && __say('✅ Maps JS loaded.');
         }
       }, 5000);
     })();
