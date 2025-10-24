@@ -4,23 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Home Inspector in Twin Falls, ID | Certified Master Inspector – Mabels Inspections</title>
-  <meta name="description" content="Certified Master Inspector serving Twin Falls and nearby Idaho cities. $400 flat fee. Same/next-day slots. Photo-rich reports in 24 hours. Call (208) 353-3483 or book online.">
+  <meta name="description" content="Certified Master Inspector serving Twin Falls and nearby Idaho cities. $500 flat fee. Same/next-day slots. Photo-rich reports in 24 hours. Call (208) 353-3483 or book online.">
   <link rel="canonical" href="https://www.mabelsinspections.com/" />
 
   <meta property="og:title" content="Home Inspector in Twin Falls, ID – Mabels Inspections">
-  <meta property="og:description" content="$400 flat fee. Same/next-day scheduling. 24-hour photo-rich reports.">
+  <meta property="og:description" content="$500 flat fee. Same/next-day scheduling. 24-hour photo-rich reports.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.mabelsinspections.com/">
   <meta property="og:image" content="https://www.mabelsinspections.com/logo.jpeg">
 
   <style>
     :root { --bg:#f7fbff; --ink:#0b1220; --muted:#475569; --brand:#0a3d91; --accent:#1e90ff; --border:#e2e8f0; --card:#fff; --shadow:0 8px 24px rgba(2,6,23,.06);}
-    * { box-sizing:border-box; } html,body { margin:0; padding:0; }
-    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--ink); line-height:1.55; }
+    * { box-sizing:border-box; } html,body { margin:0; padding:0;  padding-bottom: 76px !important;}
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--ink); line-height:1.55;  padding-bottom: 76px !important;}
     .container { width:min(1100px,92%); margin:0 auto; }
     a { color:var(--brand); text-decoration:none; }
 
-    .site-header { background:var(--card); border-bottom:1px solid var(--border); position: fixed;  z-index:30;  top:0; z-index:60; }
+    .site-header { background:var(--card); border-bottom:1px solid var(--border);   position: static; }
     .header-inner { padding:10px 0; }
     .brand-row { display:grid; grid-template-columns:auto 1fr; gap:16px; align-items:center; }
     .brand-left { display:flex; align-items:center; gap:12px; }
@@ -64,7 +64,7 @@
     .site-footer { background: var(--card); border-top: 1px solid var(--border); margin-top: 28px; }
     .footer-inner { padding:20px 0; display:grid; grid-template-columns:2fr 1fr 1fr; gap:16px; align-items:center; }
 
-    .sticky-bar { display:none; position:fixed; bottom:0; left:0; right:0; background:#ffffff; border-top:1px solid var(--border); box-shadow:0 -8px 24px rgba(2,6,23,.06); padding:10px; z-index:40; }
+    .sticky-bar {  position: fixed; bottom: 0; left: 0; right: 0; background: #ffffff; border-top: 1px solid var(--border); box-shadow: 0 -8px 24px rgba(2,6,23,.06); padding: 10px; z-index: 999;  display: block;}
     .sticky-bar .wrap { width:min(1100px,92%); margin:0 auto; display:flex; gap:10px; }
     .sticky-bar a { flex:1; text-align:center; }
 
@@ -73,7 +73,7 @@
       .hero { grid-template-columns: 1fr; }
       .grid-3, .why, .testimonials { grid-template-columns: 1fr; }
       .footer-inner { grid-template-columns: 1fr; gap: 10px; }
-      .sticky-bar { display:block; }
+      .sticky-bar { display: block;  position: fixed; bottom: 0; left: 0; right: 0; z-index: 999; background: #ffffff; padding: 10px; border-top: 1px solid var(--border); box-shadow: 0 -8px 24px rgba(2,6,23,.06);}
     }
   </style>
 </head>
@@ -285,63 +285,16 @@
         if (place.rating && place.user_ratings_total) {
           summary.textContent = `${place.name} — ${place.rating.toFixed(1)} / 5.0 (${place.user_ratings_total} reviews)`;
         }
-        // --- Begin rotating 3-at-a-time reviews (only change) ---
-        const reviews = (place.reviews || []).slice(); // Places returns up to ~5
         list.innerHTML = '';
-        if (!reviews.length) {
-          const empty = document.createElement('div');
-          empty.className = 'small';
-          empty.style.color = '#6b7280';
-          empty.textContent = 'No public reviews yet.';
-          list.appendChild(empty);
-          return;
-        }
-
-        const pageSize = 3;
-        let start = 0;
-        let timer = null;
-
-        function cardHTML(r) {
-          const dateStr = r.time ? new Date(r.time*1000).toLocaleDateString() : '';
-          const text = (r.text || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-          return `<div class="quote">
-            <div class="stars">${renderStars(r.rating)}</div>
+        (place.reviews || []).slice(0,3).forEach(r => {
+          const card = document.createElement('div');
+          card.className = 'quote';
+          card.innerHTML = `<div class="stars">${renderStars(r.rating)}</div>
             <div style="margin-top:6px"><strong>${r.author_name || 'Google user'}</strong></div>
-            <div class="small" style="color:#6b7280">${dateStr}</div>
-            <div style="margin-top:8px">${text}</div>
-          </div>`;
-        }
-
-        function renderSlice() {
-          list.innerHTML = '';
-          for (let i = 0; i < Math.min(pageSize, reviews.length); i++) {
-            const r = reviews[(start + i) % reviews.length];
-            const card = document.createElement('div');
-            card.innerHTML = cardHTML(r);
-            // unwrap inner so grid styles apply
-            const inner = card.firstChild;
-            list.appendChild(inner);
-          }
-        }
-
-        function nextPage(step=pageSize) {
-          start = (start + step) % reviews.length;
-          renderSlice();
-        }
-
-        function startAuto() {
-          stopAuto();
-          timer = setInterval(() => nextPage(), 6000);
-        }
-        function stopAuto() { if (timer) { clearInterval(timer); timer = null; } }
-
-        // Hover to pause/resume
-        list.addEventListener('mouseenter', stopAuto);
-        list.addEventListener('mouseleave', startAuto);
-
-        renderSlice();
-        startAuto();
-        // --- End rotating 3-at-a-time reviews ---
+            <div class="small" style="color:#6b7280">${new Date(r.time*1000).toLocaleDateString()}</div>
+            <div style="margin-top:8px">${(r.text || '').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
+          list.appendChild(card);
+        });
         if (place.url) { link.href = place.url; footer.style.display = 'block'; }
         try {
           if (location.hash === '#reviews-setup') {
