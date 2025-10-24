@@ -60,6 +60,15 @@
     .testimonials { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:12px; }
     .quote { border:1px solid var(--border); border-radius:12px; padding:14px; }
     .stars { font-size:18px; color:#f59e0b; }
+    /* Reviews carousel */
+    .reviews-carousel { position: relative; }
+    .reviews-frame { min-height: 140px; }
+    .carousel-controls { display:flex; align-items:center; justify-content:center; gap:8px; margin-top:10px; }
+    .carousel-btn { border:1px solid var(--border); background:#fff; padding:6px 10px; border-radius:10px; cursor:pointer; font-weight:700; }
+    .carousel-btn:hover { filter: brightness(1.05); }
+    .dots { display:flex; gap:6px; align-items:center; justify-content:center; margin-top:6px; }
+    .dot { width:8px; height:8px; border-radius:50%; background:#cbd5e1; }
+    .dot.active { background:#0a3d91; }
 
     .site-footer { background: var(--card); border-top: 1px solid var(--border); margin-top: 28px; }
     .footer-inner { padding:20px 0; display:grid; grid-template-columns:2fr 1fr 1fr; gap:16px; align-items:center; }
