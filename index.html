@@ -285,17 +285,99 @@
         if (place.rating && place.user_ratings_total) {
           summary.textContent = `${place.name} — ${place.rating.toFixed(1)} / 5.0 (${place.user_ratings_total} reviews)`;
         }
+        
+        // --- Begin rotating 3-at-a-time reviews (only change) ---
+        const reviews = (place.reviews || []).slice();
         list.innerHTML = '';
-        (place.reviews || []).slice(0,3).forEach(r => {
-          const card = document.createElement('div');
-          card.className = 'quote';
-          card.innerHTML = `<div class="stars">${renderStars(r.rating)}</div>
-            <div style="margin-top:6px"><strong>${r.author_name || 'Google user'}</strong></div>
-            <div class="small" style="color:#6b7280">${new Date(r.time*1000).toLocaleDateString()}</div>
-            <div style="margin-top:8px">${(r.text || '').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`;
-          list.appendChild(card);
-        });
-        if (place.url) { link.href = place.url; footer.style.display = 'block'; }
+        if (!reviews.length) {
+          const empty = document.createElement('div');
+          empty.className = 'small';
+          empty.style.color = '#6b7280';
+          empty.textContent = 'No public reviews yet.';
+          list.appendChild(empty);
+        } else {
+          const pageSize = 3;
+          let start = 0;
+          let timer = null;
+
+          function cardHTML(r) {
+            const dateStr = r.time ? new Date(r.time*1000).toLocaleDateString() : '';
+            const safe = (r.text || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            return `<div class="quote">
+              <div class="stars">${renderStars(r.rating)}</div>
+              <div style="margin-top:6px"><strong>${r.author_name || 'Google user'}</strong></div>
+              <div class="small" style="color:#6b7280">${dateStr}</div>
+              <div style="margin-top:8px">${safe}</div>
+            </div>`;
+          }
+
+          function renderSlice() {
+            list.innerHTML = '';
+            for (let i = 0; i < Math.min(pageSize, reviews.length); i++) {
+              const r = reviews[(start + i) % reviews.length];
+              const shell = document.createElement('div');
+              shell.innerHTML = cardHTML(r);
+              list.appendChild(shell.firstChild);
+            }
+          }
+
+          function nextPage(step = pageSize) {
+            start = (start + step) % reviews.length;
+            renderSlice();
+          }
+
+          function startAuto() { stopAuto(); timer = setInterval(() => nextPage(), 6000); }
+          function stopAuto() { if (timer) { clearInterval(timer); timer = null; } }
+
+          // Pause on hover over the reviews list
+          list.addEventListener('mouseenter', stopAuto);
+          list.addEventListener('mouseleave', startAuto);
+
+          // Manual controls (prev/next) with inline styling to avoid CSS changes
+          if (!document.getElementById('reviews-controls')) {
+            const controls = document.createElement('div');
+            controls.id = 'reviews-controls';
+            controls.style.display = 'flex';
+            controls.style.gap = '8px';
+            controls.style.justifyContent = 'center';
+            controls.style.marginTop = '10px';
+
+            const prev = document.createElement('button');
+            prev.id = 'reviews-prev';
+            prev.textContent = '◀';
+            prev.setAttribute('aria-label', 'Previous reviews');
+            prev.style.border = '1px solid #e2e8f0';
+            prev.style.background = '#fff';
+            prev.style.padding = '6px 10px';
+            prev.style.borderRadius = '10px';
+            prev.style.cursor = 'pointer';
+            prev.style.fontWeight = '700';
+
+            const next = document.createElement('button');
+            next.id = 'reviews-next';
+            next.textContent = '▶';
+            next.setAttribute('aria-label', 'Next reviews');
+            next.style.border = '1px solid #e2e8f0';
+            next.style.background = '#fff';
+            next.style.padding = '6px 10px';
+            next.style.borderRadius = '10px';
+            next.style.cursor = 'pointer';
+            next.style.fontWeight = '700';
+
+            controls.appendChild(prev);
+            controls.appendChild(next);
+            list.insertAdjacentElement('afterend', controls);
+
+            function restartAuto(){ stopAuto(); startAuto(); }
+            prev.addEventListener('click', () => { start = (start - pageSize + reviews.length) % reviews.length; renderSlice(); restartAuto(); });
+            next.addEventListener('click', () => { nextPage(); restartAuto(); });
+          }
+
+          renderSlice();
+          startAuto();
+        }
+        // --- End rotating 3-at-a-time reviews ---
+if (place.url) { link.href = place.url; footer.style.display = 'block'; }
         try {
           if (location.hash === '#reviews-setup') {
             const adminBox = document.getElementById('reviews-admin');
