@@ -291,6 +291,9 @@
         });
       }
 
+      // Expose for Maps JS callback
+      window.initReviews = initReviews;
+
       // Load Maps JS + Places
       (function loadMaps(){
         const s = document.createElement('script');
