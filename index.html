@@ -57,6 +57,13 @@
     .service { background:#f8fbff; border:1px solid var(--border); border-radius:12px; padding:16px; }
     .why { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
     .why .card { background:#fff; border:1px solid var(--border); border-radius:14px; padding:16px; }
+
+    /* NEW: credentials section */
+    .credentials-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; align-items:stretch; }
+    .credential-badge { background:#f8fbff; border:1px solid var(--border); border-radius:12px; padding:14px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+    .credential-badge img { max-width:120px; height:auto; margin-bottom:8px; }
+    .cred-pill { display:inline-block; padding:8px 12px; border-radius:999px; border:1px solid var(--border); font-weight:700; }
+
     .testimonials { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:12px; }
     .quote { border:1px solid var(--border); border-radius:12px; padding:14px; }
     .stars { font-size:18px; color:#f59e0b; }
@@ -72,8 +79,13 @@
       .brand-row { grid-template-columns: 1fr; }
       .hero { grid-template-columns: 1fr; }
       .grid-3, .why, .testimonials { grid-template-columns: 1fr; }
+      .credentials-grid { grid-template-columns:1fr 1fr; }
       .footer-inner { grid-template-columns: 1fr; gap: 10px; }
       .sticky-bar { display: block;  position: fixed; bottom: 0; left: 0; right: 0; z-index: 999; background: #ffffff; padding: 10px; border-top: 1px solid var(--border); box-shadow: 0 -8px 24px rgba(2,6,23,.06);}
+    }
+
+    @media (max-width: 600px) {
+      .credentials-grid { grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -103,10 +115,10 @@
 
   <section class="container hero">
     <div>
-      <h1>$400 Flat‑Fee Home Inspections — Photo‑Rich Reports in 24 Hours</h1>
+      <h1>$400 Flat-Fee Home Inspections — Photo-Rich Reports in 24 Hours</h1>
       <p>Buy with confidence and avoid costly surprises. Easy scheduling, clear reporting, and straight talk from a local expert.</p>
       <div class="trustbar">
-        <span class="pill">Same‑day / next‑day slots</span>
+        <span class="pill">Same-day / next-day slots</span>
         <span class="pill">Thermal imaging included</span>
         <span class="pill">Mold inspection available</span>
       </div>
@@ -115,16 +127,31 @@
           <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 11h10v2H7zM5 3h14a2 2 0 0 1 2 2v3H3V5a2 2 0 0 1 2-2zm-2 8h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8zm4 5h4v2H7v-2z"/></svg>
           Book Inspection — $400
         </a>
-        <a href="tel:2083533483" class="btn btn-ghost-lg">Call Mark: (208) 353‑3483</a>
+        <a href="tel:2083533483" class="btn btn-ghost-lg">Call Mark: (208) 353-3483</a>
       </div>
       <div class="microcopy">No payment required to book. You’ll get a confirmation text/call.</div>
-      <div class="trust-inline"><span class="pill">CMI® Certified</span><span class="pill">24‑Hour Reports</span><span class="pill">Local & Insured</span></div>
+      <div class="trust-inline"><span class="pill">CMI® Certified</span><span class="pill">24-Hour Reports</span><span class="pill">Local & Insured</span></div>
       <p class="small" style="margin-top:8px">Serving cities within ~50 miles of Filer, ID: Twin Falls • Filer • Buhl • Jerome • Kimberly • Hansen • Murtaugh • Eden • Hazelton • Hollister • Castleford • Rogerson • Bliss • Hagerman • Wendell • Gooding • Shoshone • Dietrich • Heyburn • Burley • Rupert • Paul • Oakley.</p>
     </div>
     <div style="text-align:center">
       <img src="me-small.webp" alt="Mark Abels — Certified Master Inspector" style="width:100%;max-width:380px;height:auto;border-radius:14px;box-shadow:0 8px 24px rgba(2,6,23,.15);" />
       <div style="margin-top:8px;font-weight:700;color:#0d47a1;">Mark Abels, CMI®</div>
       <img src="cmi-small.webp" alt="Certified Master Inspector (CMI)® badge" style="width:140px;height:auto;margin-top:6px" />
+
+      <!-- Stacked credentials under CMI badge -->
+      <div style="margin-top:14px;">
+        <div style="margin-bottom:10px;">
+          <img src="micro-seal-cmrc.png" alt="MICRO Certified Mold Remediation Contractor badge" style="width:130px;height:auto;display:block;margin:0 auto 4px auto;" />
+          <div style="font-size:12px;color:#334155;"><strong>MICRO Certified Mold Remediation Contractor</strong></div>
+        </div>
+        <div style="margin-bottom:10px;">
+          <img src="ccpia_logo-low-res.png" alt="CCPIA Certified Commercial Property Inspector badge" style="width:130px;height:auto;display:block;margin:0 auto 4px auto;" />
+          <div style="font-size:12px;color:#334155;"><strong>CCPIA Certified Commercial Property Inspector</strong></div>
+        </div>
+        <div style="font-size:12px;color:#111827;margin-top:4px;">
+          🛡 <strong>Fully Insured</strong> — Professional Liability Coverage
+        </div>
+      </div>
     </div>
   </section>
 
@@ -132,21 +159,23 @@
     <h2 class="section-title">Services</h2>
     <div class="grid-3" style="margin-top:12px">
       <div class="service"><h3>Residential Home Inspections</h3><p>Structure, roof, electrical, plumbing, HVAC, interior/exterior, and safety.</p></div>
-      <div class="service"><h3>Pre‑Purchase Inspections</h3><p>Detailed reports to help buyers make informed decisions before closing.</p></div>
-      <div class="service"><h3>Pre‑Listing Inspections</h3><p>Fix issues before listing to reduce surprises and speed up sale.</p></div>
+      <div class="service"><h3>Pre-Purchase Inspections</h3><p>Detailed reports to help buyers make informed decisions before closing.</p></div>
+      <div class="service"><h3>Pre-Listing Inspections</h3><p>Fix issues before listing to reduce surprises and speed up sale.</p></div>
       <div class="service"><h3>Mold Inspections</h3><p>Moisture mapping, visible mold assessment, and guidance on remediation.</p></div>
       <div class="service"><h3>Thermal Imaging</h3><p>Identify hidden moisture, electrical problems, insulation gaps, and leaks.</p></div>
-      <div class="service"><h3>Annual Maintenance</h3><p>Yearly checkups to keep your home safe, efficient, and well‑maintained.</p></div>
+      <div class="service"><h3>Annual Maintenance</h3><p>Yearly checkups to keep your home safe, efficient, and well-maintained.</p></div>
     </div>
   </section>
 
   <section id="why" class="container section-card">
     <h2 class="section-title">Why Choose Mabels Inspections</h2>
     <div class="why">
-      <div class="card"><strong>24‑Hour Reports</strong><br/>Get a clear, photo‑rich report fast so you can keep your deal moving.</div>
-      <div class="card"><strong>Straight Talk</strong><br/>No scare tactics. Practical findings with plain‑English guidance.</div>
-      <div class="card"><strong>Agent‑Friendly</strong><br/>Realtors trust our speed and clarity. We coordinate smoothly with your timeline.</div>
+      <div class="card"><strong>24-Hour Reports</strong><br/>Get a clear, photo-rich report fast so you can keep your deal moving.</div>
+      <div class="card"><strong>Straight Talk</strong><br/>No scare tactics. Practical findings with plain-English guidance.</div>
+      <div class="card"><strong>Agent-Friendly</strong><br/>Realtors trust our speed and clarity. We coordinate smoothly with your timeline.</div>
     </div>
+  </section>
+
   </section>
 
   <section id="reviews" class="container section-card" style="border-color:#e5e7eb">
@@ -168,15 +197,15 @@
 
   <section id="faq" class="container section-card">
     <h2 class="section-title">FAQs</h2>
-    <details><summary><strong>How much does a home inspection cost?</strong></summary><p>Most single‑family homes are a flat $400. Larger properties or special add‑ons (extensive outbuildings, unusual square footage) may be quoted case‑by‑case.</p></details>
-    <details><summary><strong>How long does an inspection take?</strong></summary><p>Most single‑family homes take 2–3 hours on site.</p></details>
-    <details><summary><strong>Do you inspect for mold?</strong></summary><p>Yes — moisture mapping and visible growth assessment are available, along with guidance for remediation and post‑remediation checks.</p></details>
+    <details><summary><strong>How much does a home inspection cost?</strong></summary><p>Most single-family homes are a flat $400. Larger properties or special add-ons (extensive outbuildings, unusual square footage) may be quoted case-by-case.</p></details>
+    <details><summary><strong>How long does an inspection take?</strong></summary><p>Most single-family homes take 2–3 hours on site.</p></details>
+    <details><summary><strong>Do you inspect for mold?</strong></summary><p>Yes — moisture mapping and visible growth assessment are available, along with guidance for remediation and post-remediation checks.</p></details>
     <details><summary><strong>What’s your service area?</strong></summary><p>Twin Falls • Filer • Buhl • Jerome • Kimberly • Hansen • Murtaugh • Eden • Hazelton • Hollister • Castleford • Rogerson • Bliss • Hagerman • Wendell • Gooding • Shoshone • Dietrich • Heyburn • Burley • Rupert • Paul • Oakley</p></details>
   </section>
 
   <section id="contact" class="container section-card">
     <h2 class="section-title">$400 Flat Fee — Book Now</h2>
-    <p class="small" style="color:var(--muted)">Tell me a few details and I’ll reply promptly. Prefer to talk? Call <a href="tel:2083533483">(208) 353‑3483</a>.</p>
+    <p class="small" style="color:var(--muted)">Tell me a few details and I’ll reply promptly. Prefer to talk? Call <a href="tel:2083533483">(208) 353-3483</a>.</p>
     <div id="form-alert" style="display:none;border-radius:12px;padding:12px;margin-bottom:10px"></div>
 
     <form id="contactForm" class="contact-form" action="https://formspree.io/f/xgvzdgak" method="POST" accept-charset="UTF-8" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
@@ -187,7 +216,7 @@
       <div><label for="time">Preferred time</label><input id="time" name="preferred_time" type="time" /></div>
       <div class="form-full" style="grid-column:1/-1"><label for="service">Service</label>
         <select id="service" name="service">
-          <option>Home Inspection</option><option>Pre‑Purchase Inspection</option><option>Pre‑Listing Inspection</option><option>Mold Inspection</option><option>Annual Maintenance Inspection</option>
+          <option>Home Inspection</option><option>Pre-Purchase Inspection</option><option>Pre-Listing Inspection</option><option>Mold Inspection</option><option>Annual Maintenance Inspection</option>
         </select></div>
       <div class="form-full" style="grid-column:1/-1"><label for="message">Anything specific you want checked? <span class="small">(optional)</span></label><textarea id="message" name="message" rows="4"></textarea></div>
       <div class="form-full" style="grid-column:1/-1"><button type="submit" class="btn cta-lg"><span class="btn-text">Send Request</span></button></div>
@@ -207,7 +236,7 @@
         </div>
       </div>
       <div><div class="small"><strong>Service Area</strong><br/>Twin Falls • Filer • Buhl • Jerome • Kimberly • Hansen • Murtaugh • Eden • Hazelton • Hollister • Castleford • Rogerson • Bliss • Hagerman • Wendell • Gooding • Shoshone • Dietrich • Heyburn • Burley • Rupert • Paul • Oakley</div></div>
-      <div><div class="small">Phone <a href="tel:2083533483">(208) 353‑3483</a><br/><a href="mailto:mabelsllc@gmail.com">mabelsllc@gmail.com</a><br/>© <span id="y"></span> Mabels Inspections</div></div>
+      <div><div class="small">Phone <a href="tel:2083533483">(208) 353-3483</a><br/><a href="mailto:mabelsllc@gmail.com">mabelsllc@gmail.com</a><br/>© <span id="y"></span> Mabels Inspections</div></div>
     </div>
   </footer>
 
@@ -233,7 +262,7 @@
         const res = await fetch(form.action, { method:'POST', headers:{'Accept':'application/json'}, body:data });
         if (res.ok) {
           form.reset();
-          alertBox.textContent = '✅ Thanks! Your request is in. I\'ll reach out shortly to confirm your time.';
+          alertBox.textContent = '✅ Thanks! Your request is in. I'll reach out shortly to confirm your time.';
           alertBox.style.background = '#d1fae5'; alertBox.style.color = '#065f46'; alertBox.style.display = 'block';
           form.scrollIntoView({ behavior:'smooth', block:'start' });
         } else {
@@ -285,7 +314,7 @@
         if (place.rating && place.user_ratings_total) {
           summary.textContent = `${place.name} — ${place.rating.toFixed(1)} / 5.0 (${place.user_ratings_total} reviews)`;
         }
-        
+
         // --- Begin rotating 3-at-a-time reviews (only change) ---
         const reviews = (place.reviews || []).slice();
         list.innerHTML = '';
@@ -433,7 +462,7 @@ if (place.url) { link.href = place.url; footer.style.display = 'block'; }
           svc.findPlaceFromQuery({ query:q, fields:['place_id','name'] }, (res, st) => {
             if (st === google.maps.places.PlacesServiceStatus.OK && res && res[0]) cb(res[0].place_id);
             else svc.textSearch({ query:q }, (r2, st2) => {
-              if (st2 === google.maps.places.PlacesStatus.OK && r2 && r2[0]) cb(r2[0].place_id);
+              if (st2 === google.maps.places.PlacesServiceStatus.OK && r2 && r2[0]) cb(r2[0].place_id);
               else next();
             });
           });
