@@ -331,15 +331,8 @@
     </h2>
     <div id="reviews-summary" class="small" style="margin-bottom:10px;color:var(--muted)"></div>
     <div id="reviews-list" class="testimonials"></div>
-    <p class="small" style="margin-top:8px;color:#6b7280">Ratings and excerpts are provided by Google via the Places API.</p>
-    <p class="small" id="reviews-footer" style="margin-top:10px;display:none">Read more on <a id="reviews-link" href="#" target="_blank" rel="noopener">Google</a>.</p>
-
-    <div id="reviews-admin" style="display:none;margin-top:10px;border-top:1px dashed #e5e7eb;padding-top:10px">
-      <div class="small" style="color:#475569"><strong>Admin:</strong> Resolved Place ID and details</div>
-      <div id="resolved-name" class="small"></div>
-      <div id="resolved-pid" class="small" style="margin-top:4px"></div>
-      <button id="copy-pid" class="btn btn-ghost-lg" style="margin-top:8px">Copy Place ID</button>
-    </div>
+    <p class="small" style="margin-top:8px;color:#6b7280">Ratings and excerpts are based on feedback from real clients in Twin Falls and the Magic Valley.</p>
+    <p class="small" id="reviews-footer" style="margin-top:10px;">Want to see more feedback? Search for <a id="reviews-link" href="https://www.google.com/maps/search/?api=1&query=Mabels+Inspections+Twin+Falls+ID" target="_blank" rel="noopener">Mabels Inspections on Google</a>.</p>
   </section>
 
   <section id="faq" class="container section-card">
@@ -446,27 +439,6 @@
         if (btn) btn.textContent = 'Send Request';
       }
     });
-
-    const GOOGLE_MAPS_API_KEY = "AIzaSyAp0i6EUfUcshG-O9DaF1ls87DOZOI6w8Q";
-    const USER_PID_RAW = "ChlJ9xdm|z6-rFQRo-6BMx|Mgbg";
-    const CID_FALLBACK = "14748690983600710767";
-    const STORAGE_KEY = 'PLACE_ID_OVERRIDE';
-
-    function candidatesFrom(raw) {
-      const cands = [];
-      if (!raw) return cands;
-      const trimmed = (raw + '').trim();
-      cands.push(trimmed);
-      cands.push(trimmed.replace(/\|/g, ''));
-      cands.push(trimmed.replace(/\|/g, '_'));
-      if (/^ChlJ/.test(trimmed)) cands.push(trimmed.replace(/^ChlJ/, 'ChIJ'));
-      const noPipes = trimmed.replace(/\|/g, '');
-      if (/^ChlJ/.test(noPipes)) cands.push(noPipes.replace(/^ChlJ/, 'ChIJ'));
-      cands.push(trimmed.toUpperCase().replace(/\|/g, ''));
-      return Array.from(new Set(cands)).filter(Boolean);
-    }
-
-    
 function initReviews() {
       const section = document.getElementById('reviews');
       if (!section) return;
